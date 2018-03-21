@@ -1,1 +1,0 @@
-# node-jwt-auth-api
