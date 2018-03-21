@@ -41,10 +41,8 @@ apiRoutes.get('/users', function(req, res){
 
 //get one
 apiRoutes.post('/users', (req, res) => {
-    console.log(req.param.userName);
-    console.log(req.body.userName);
     User.findOne({
-        userName : req.params.userName
+        userName : req.body.userName
     }, (err, user) => {
         if(err) throw err;
         if(!user){
@@ -52,7 +50,7 @@ apiRoutes.post('/users', (req, res) => {
         }
         else if(user){
             //check if password is correct or not
-            if(user.password != req.params.password){
+            if(user.password != req.body.password){
                 res.json({ 
                     success: false, 
                     message: 'Authentication failed. Wrong password.' 
