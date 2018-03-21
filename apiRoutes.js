@@ -46,7 +46,10 @@ apiRoutes.post('/users', (req, res) => {
     }, (err, user) => {
         if(err) throw err;
         if(!user){
-            res.json({ success: false, message: 'Authentication failed. User not found.' });
+            res.json({ 
+                success: false, 
+                message: 'Authentication failed. User not found.' 
+            });
         }
         else if(user){
             //check if password is correct or not
