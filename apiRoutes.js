@@ -40,13 +40,41 @@ apiRoutes.get('/users', function(req, res){
 });
 
 //get one
-apiRoutes.post('/authenticate', (req, res, next) => {
+apiRoutes.post('/users', (req, res) => {
     User.findOne({
         userName : req.body.userName
     }, (err, user) => {
         if(err) throw err;
         if(!user){
-            res.json({ success: false, message: 'Authentication failed. User not found.' });
+            res.json({ 
+                success: false, 
+                message: 'Authentication failed. User not found.' 
+            });
+        }
+        else if(user){
+            //check if password is correct or not
+            if(user.password != req.body.password){
+                res.json({ 
+                    success: false, 
+                    message: 'Authentication failed. Wrong password.' 
+                });
+            }
+            else{
+                const payload = {
+                    admin : user.admin
+                };
+
+                //create-token
+                var token = jwt.sign(payload, app.get('secret'), {
+                    expiresInMinutes: 1440      // expires in 24 hours
+                });
+
+                res.json({
+                    success : true,
+                    message : "Token generated",
+                    token : token
+                });
+            }
         }
         res.json(user);
     });
