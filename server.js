@@ -45,6 +45,20 @@ apiRoutes.get('/setup', function(req, res){
     });
 });
 
+// apiRoutes.post('/setup', function(req, res){
+//     var newUser = new User({
+//         userName : req.query.username,
+//         password : req.query.password,
+//         admin : req.query.admin
+//     });
+
+//     newUser.save(function(err){
+//         if(err) throw err;
+//         console.log("User saved successfully");
+//         res.json({ success : true });
+//     });
+// });
+
 //get all users
 apiRoutes.get('/users', function(req, res){
     User.find({}, (err, users) => {
@@ -56,7 +70,7 @@ apiRoutes.get('/users', function(req, res){
 //get one
 apiRoutes.post('/users', (req, res) => {
     User.findOne({
-        userName : req.query.userName
+        userName : req.query.username
     }, (err, user) => {
         if(err) throw err;
         if(!user){
