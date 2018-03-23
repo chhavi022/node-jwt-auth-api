@@ -7,10 +7,6 @@ var User = require('./models/user');
 //connect to database
 mongoose.connect(config.database);
 
-const MongoClient = require('mongodb').MongoClient;
-
-const url = 'mongodb://localhost:27017/User';
-
 var emp_data = [];
 
 apiRoutes.get('/', (req, res, next) => {
